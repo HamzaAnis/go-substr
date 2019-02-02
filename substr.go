@@ -26,7 +26,11 @@ func (v *String) Substr(n1 int, n2 ...int) string {
 		if n1 >= 0 && n1+n2[0] <= len(v.data) {
 			substr = v.data[n1 : n1+n2[0]]
 		} else if n1 < 0 && len(v.data)+n1 >= 0 {
-			substr = v.data[len(v.data)+n1 : len(v.data)+n1+n2[0]]
+			upperBound := len(v.data) + n1 + n2[0]
+			if upperBound > len(v.data) {
+				upperBound = len(v.data)
+			}
+			substr = v.data[len(v.data)+n1 : upperBound]
 		}
 
 	}
