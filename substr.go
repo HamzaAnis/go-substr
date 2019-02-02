@@ -11,6 +11,16 @@ func (v *String) Substr(n1 int, n2 ...int) string {
 	if len(n2) <= 0 {
 		if n1 >= 0 && n1 <= len(v.data) {
 			substr = v.data[n1:]
+		} else if n1 < 0 {
+
+			// fmt.Printf("it is %v\n ", len(v.data))
+			// fmt.Printf("it is %v\n ", n1)
+			// fmt.Printf("it is %v\n ", len(v.data)+n1)
+			if len(v.data)+n1 >= 0 {
+				substr = v.data[len(v.data)+n1:]
+			} else {
+				substr = v.data
+			}
 		}
 	} else {
 		if n1 >= 0 && n1+n2[0] <= len(v.data) {
