@@ -12,10 +12,6 @@ func (v *String) Substr(n1 int, n2 ...int) string {
 		if n1 >= 0 && n1 <= len(v.data) {
 			substr = v.data[n1:]
 		} else if n1 < 0 {
-
-			// fmt.Printf("it is %v\n ", len(v.data))
-			// fmt.Printf("it is %v\n ", n1)
-			// fmt.Printf("it is %v\n ", len(v.data)+n1)
 			if len(v.data)+n1 >= 0 {
 				substr = v.data[len(v.data)+n1:]
 			} else {
@@ -23,7 +19,7 @@ func (v *String) Substr(n1 int, n2 ...int) string {
 			}
 		}
 	} else {
-		if n1 >= 0 && n1+n2[0] <= len(v.data) {
+		if n1 >= 0 && n1+n2[0] <= len(v.data) && n2[0] >= 0 {
 			substr = v.data[n1 : n1+n2[0]]
 		} else if n1 < 0 && len(v.data)+n1 >= 0 {
 			upperBound := len(v.data) + n1 + n2[0]
@@ -31,6 +27,8 @@ func (v *String) Substr(n1 int, n2 ...int) string {
 				upperBound = len(v.data)
 			}
 			substr = v.data[len(v.data)+n1 : upperBound]
+		} else if n1 >= 0 && n2[0] < 0 {
+			substr = v.data[n1 : len(v.data)+n1+n2[0]]
 		}
 
 	}
